@@ -1,0 +1,26 @@
+name: build-image
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          submodules: true
+
+      - name: Build image
+        uses: elgohr/Publish-Docker-Github-Action@2.8
+        with:
+          dockerfile: Dockerfile
+          name: abogatikov/docker-wireguard/docker-wireguard
+          registry: docker.pkg.github.com
+          username: abogatikov
+          password: ${{ secrets.GITHUB_TOKEN }}
+          tag_names: true
