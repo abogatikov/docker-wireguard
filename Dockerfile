@@ -3,7 +3,7 @@ LABEL maintainer="abogatikov@devalexb.com"
 RUN dnf update -y && \
     dnf install 'dnf-command(copr)' -y && \
     dnf copr enable jdoss/wireguard -y && \
-    dnf install wireguard-dkms wireguard-tools iproute -y && \
+    dnf install wireguard-dkms wireguard-tools iproute kernel-devel kernel-headers -y && \
     dnf clean all -y && \
     rm -rf /var/cache/dnf
 
