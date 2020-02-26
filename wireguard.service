@@ -7,7 +7,7 @@ Requires=docker.service
 TimeoutStartSec=0
 Environment="WG_CFG_VOL=/etc/wireguard"
 Environment="WG_LIB_VOL=/lib/modules"
-Environment="WG_IMAGE=docker.pkg.github.com/abogatikov/docker-wireguard/docker-wireguard:v0.0.4"
+Environment="WG_IMAGE=docker.pkg.github.com/abogatikov/docker-wireguard/docker-wireguard:v0.0.5"
 Environment="WG_CONTAINER=openvpn"
 ExecStartPre=-/usr/bin/docker stop ${WG_CONTAINER}
 ExecStartPre=-/usr/bin/docker rm ${WG_CONTAINER}
