@@ -2,6 +2,10 @@
 set -e
 
 if [ "$1" = "run-server" ]; then
+    MODULE_VERSION=$(rpm -q --qf "%{VERSION}\n" wireguard-dkms)
+    dkms install wireguard/"$MODULE_VERSION"
+    modprobe wireguard
+
     config=/etc/wireguard/wg0.conf
     if ip a | grep -q "$(basename "$config" | cut -f 1 -d '.')"; then
         echo "Stopping existing interface"
