@@ -1,0 +1,21 @@
+[Unit]
+Description=Wireguard
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Environment="WG_CFG_VOL=/etc/wireguard"
+Environment="WG_LIB_VOL=/lib/modules"
+Environment="WG_IMAGE=docker.pkg.github.com/abogatikov/docker-wireguard/docker-wireguard:v0.0.3"
+Environment="WG_CONTAINER=openvpn"
+ExecStartPre=-/usr/bin/docker stop ${WG_CONTAINER}
+ExecStartPre=-/usr/bin/docker rm ${WG_CONTAINER}
+ExecStart=/usr/bin/docker run \
+  --cap-add=NET_ADMIN --cap-add=SYS_MODULE --net=host \
+  -v ${WG_CFG_VOL}:/etc/wireguard -v ${WG_LIB_VOL}:/lib/modules \
+  --name ${WG_CONTAINER} ${WG_IMAGE}
+ExecStop=/usr/bin/docker stop ${WG_CONTAINER}
+
+[Install]
+WantedBy=multi-user.target

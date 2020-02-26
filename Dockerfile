@@ -5,3 +5,8 @@ RUN dnf install 'dnf-command(copr)' -y && \
     dnf install wireguard-dkms wireguard-tools -y && \
     dnf clean all -y && \
     rm -rf /var/cache/dnf
+
+COPY docker-entrypoint.sh /bin/docker-entrypoint.sh
+
+ENTRYPOINT [ "docker-entrypoint.sh" ]
+CMD [ "run-server" ]
