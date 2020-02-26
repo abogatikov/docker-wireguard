@@ -7,7 +7,7 @@ RUN dnf install 'dnf-command(copr)' -y && \
     rm -rf /var/cache/dnf
 
 COPY docker-entrypoint.sh /bin/docker-entrypoint.sh
-RUN chmod +x /usr/local/sbin/docker-entrypoint.sh
+RUN chmod +x /bin/docker-entrypoint.sh
 
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 CMD [ "run-server" ]
